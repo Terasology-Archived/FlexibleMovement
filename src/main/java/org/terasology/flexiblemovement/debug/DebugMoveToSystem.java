@@ -15,7 +15,6 @@
  */
 package org.terasology.flexiblemovement.debug;
 
-import org.terasology.assets.management.AssetManager;
 import org.terasology.engine.entitySystem.entity.EntityManager;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.entitySystem.event.ReceiveEvent;
@@ -26,6 +25,7 @@ import org.terasology.flexiblemovement.FlexibleMovementComponent;
 import org.terasology.engine.logic.behavior.BehaviorComponent;
 import org.terasology.engine.logic.behavior.asset.BehaviorTree;
 import org.terasology.engine.logic.common.ActivateEvent;
+import org.terasology.gestalt.assets.management.AssetManager;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.registry.Share;

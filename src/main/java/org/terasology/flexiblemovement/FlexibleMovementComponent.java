@@ -16,15 +16,15 @@
 package org.terasology.flexiblemovement;
 
 import com.google.common.collect.Lists;
-import org.terasology.entitySystem.Component;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.logic.location.LocationComponent;
+import org.terasology.gestalt.entitysystem.component.Component;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 
 import java.util.List;
 
-public final class FlexibleMovementComponent implements Component {
+public final class FlexibleMovementComponent implements Component<FlexibleMovementComponent> {
     // immediate movement target
     public Vector3i target = Vector3i.zero();
 
@@ -103,5 +103,21 @@ public final class FlexibleMovementComponent implements Component {
 
     public int getPathIndex() {
         return pathIndex;
+    }
+
+    @Override
+    public void copyFrom(FlexibleMovementComponent other) {
+        target.set(other.target);
+        targetTolerance = other.targetTolerance;
+        pathGoalEntity = other.pathGoalEntity;
+        pathGoalPosition.set(other.pathGoalPosition);
+        pathGoalDistance = other.pathGoalDistance;
+        path = other.path;
+        pathIndex = other.pathIndex; //TODO change me when migrate JOML
+        movementTypes.clear();
+        movementTypes.addAll(other.movementTypes);
+        collidedHorizontally = other.collidedHorizontally;
+        lastInput = other.lastInput;
+        sequenceNumber = other.sequenceNumber;
     }
 }
