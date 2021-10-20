@@ -15,8 +15,8 @@
  */
 package org.terasology.flexiblemovement.debug;
 
-import org.terasology.rendering.nui.Canvas;
-import org.terasology.rendering.nui.layouts.FlowLayout;
+import org.terasology.nui.Canvas;
+import org.terasology.nui.layouts.FlowLayout;
 
 public class FlexibleMovementDebugLayout extends FlowLayout {
     @Override
