@@ -20,10 +20,9 @@ import org.terasology.flexiblepathfinding.PathfinderSystem;
 import org.terasology.logic.behavior.tree.Node;
 import org.terasology.logic.behavior.tree.Status;
 import org.terasology.logic.behavior.tree.Task;
-import org.terasology.logic.location.LocationComponent;
 import org.terasology.math.geom.Vector3i;
-import org.terasology.registry.In;
-import org.terasology.world.WorldProvider;
+import org.terasology.engine.registry.In;
+import org.terasology.engine.world.WorldProvider;
 
 import java.util.Arrays;
 

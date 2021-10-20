@@ -15,19 +15,17 @@
  */
 package org.terasology.flexiblemovement.plugin;
 
-import org.terasology.engine.Time;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
+import org.terasology.engine.core.Time;
+import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
 import org.terasology.flexiblepathfinding.plugins.basic.FlyingPlugin;
-import org.terasology.logic.characters.CharacterMoveInputEvent;
-import org.terasology.logic.characters.CharacterMovementComponent;
-import org.terasology.logic.characters.MovementMode;
-import org.terasology.logic.characters.events.SetMovementModeEvent;
-import org.terasology.logic.location.LocationComponent;
+import org.terasology.engine.logic.characters.CharacterMoveInputEvent;
+import org.terasology.engine.logic.characters.CharacterMovementComponent;
+import org.terasology.engine.logic.characters.MovementMode;
+import org.terasology.engine.logic.characters.events.SetMovementModeEvent;
 import org.terasology.math.TeraMath;
 import org.terasology.math.geom.Vector3f;
-import org.terasology.world.WorldProvider;
+import org.terasology.engine.world.WorldProvider;
 
 public class FlyingMovementPlugin extends MovementPlugin {
     public FlyingMovementPlugin(WorldProvider world, Time time) {

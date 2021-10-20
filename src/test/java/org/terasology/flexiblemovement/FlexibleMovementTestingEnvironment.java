@@ -18,19 +18,19 @@ package org.terasology.flexiblemovement;
 import com.google.common.collect.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.terasology.entitySystem.entity.EntityManager;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.logic.characters.CharacterMovementComponent;
-import org.terasology.logic.characters.CharacterTeleportEvent;
-import org.terasology.logic.location.LocationComponent;
+import org.terasology.engine.entitySystem.entity.EntityManager;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.logic.characters.CharacterMovementComponent;
+import org.terasology.engine.logic.characters.CharacterTeleportEvent;
+import org.terasology.engine.logic.location.LocationComponent;
 import org.terasology.math.Region3i;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.moduletestingenvironment.ModuleTestingEnvironment;
-import org.terasology.physics.engine.PhysicsEngine;
-import org.terasology.world.WorldProvider;
-import org.terasology.world.block.Block;
-import org.terasology.world.block.BlockManager;
+import org.terasology.engine.physics.engine.PhysicsEngine;
+import org.terasology.engine.world.WorldProvider;
+import org.terasology.engine.world.block.Block;
+import org.terasology.engine.world.block.BlockManager;
 
 import java.util.Set;
 

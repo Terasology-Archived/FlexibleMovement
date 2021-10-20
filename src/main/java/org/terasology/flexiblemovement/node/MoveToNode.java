@@ -17,9 +17,8 @@ package org.terasology.flexiblemovement.node;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.terasology.engine.Time;
+import org.terasology.engine.core.Time;
 import org.terasology.flexiblemovement.FlexibleMovementComponent;
-import org.terasology.flexiblemovement.plugin.LeapingMovementPlugin;
 import org.terasology.flexiblemovement.plugin.WalkingMovementPlugin;
 import org.terasology.flexiblemovement.system.FlexibleMovementSystem;
 import org.terasology.flexiblemovement.system.PluginSystem;
@@ -27,13 +26,12 @@ import org.terasology.flexiblemovement.plugin.MovementPlugin;
 import org.terasology.logic.behavior.tree.Node;
 import org.terasology.logic.behavior.tree.Status;
 import org.terasology.logic.behavior.tree.Task;
-import org.terasology.logic.characters.CharacterMoveInputEvent;
-import org.terasology.logic.characters.CharacterMovementComponent;
-import org.terasology.logic.location.LocationComponent;
+import org.terasology.engine.logic.characters.CharacterMoveInputEvent;
+import org.terasology.engine.logic.characters.CharacterMovementComponent;
+import org.terasology.engine.logic.location.LocationComponent;
 import org.terasology.math.geom.Vector3f;
-import org.terasology.math.geom.Vector3i;
-import org.terasology.registry.In;
-import org.terasology.world.WorldProvider;
+import org.terasology.engine.registry.In;
+import org.terasology.engine.world.WorldProvider;
 
 /**
  * Uses an actor's MovementPlugin to move it to FlexibleMovementComponent.target

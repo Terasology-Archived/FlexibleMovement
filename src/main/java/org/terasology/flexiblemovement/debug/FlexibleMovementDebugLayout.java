@@ -15,19 +15,8 @@
  */
 package org.terasology.flexiblemovement.debug;
 
-import org.terasology.entitySystem.entity.EntityManager;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.systems.RegisterMode;
-import org.terasology.entitySystem.systems.RegisterSystem;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
-import org.terasology.logic.location.LocationComponent;
-import org.terasology.math.Region3i;
-import org.terasology.math.geom.*;
-import org.terasology.registry.CoreRegistry;
-import org.terasology.registry.Share;
 import org.terasology.rendering.nui.Canvas;
 import org.terasology.rendering.nui.layouts.FlowLayout;
-import org.terasology.rendering.world.WorldRenderer;
 
 public class FlexibleMovementDebugLayout extends FlowLayout {
     @Override

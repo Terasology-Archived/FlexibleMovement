@@ -16,19 +16,13 @@
 package org.terasology.flexiblemovement;
 
 import com.google.common.collect.Lists;
-import org.terasology.engine.Time;
 import org.terasology.entitySystem.Component;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.flexiblemovement.plugin.MovementPlugin;
-import org.terasology.flexiblemovement.plugin.FlyingMovementPlugin;
-import org.terasology.flexiblemovement.plugin.WalkingMovementPlugin;
-import org.terasology.logic.location.LocationComponent;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.logic.location.LocationComponent;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
-import org.terasology.world.WorldProvider;
 
 import java.util.List;
-import java.util.Vector;
 
 public final class FlexibleMovementComponent implements Component {
     // immediate movement target

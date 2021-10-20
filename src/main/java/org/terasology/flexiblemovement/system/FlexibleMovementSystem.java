@@ -18,13 +18,13 @@ package org.terasology.flexiblemovement.system;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.event.ReceiveEvent;
-import org.terasology.entitySystem.systems.*;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.event.ReceiveEvent;
+import org.terasology.engine.entitySystem.systems.*;
 import org.terasology.flexiblemovement.FlexibleMovementComponent;
-import org.terasology.logic.characters.CharacterMoveInputEvent;
-import org.terasology.logic.characters.events.HorizontalCollisionEvent;
-import org.terasology.registry.Share;
+import org.terasology.engine.logic.characters.CharacterMoveInputEvent;
+import org.terasology.engine.logic.characters.events.HorizontalCollisionEvent;
+import org.terasology.engine.registry.Share;
 
 import java.util.Map;
 
