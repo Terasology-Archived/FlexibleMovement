@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.flexiblemovement.plugin;
 
+import org.joml.Vector3fc;
 import org.terasology.engine.core.Time;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
@@ -9,7 +10,7 @@ import org.terasology.engine.logic.characters.CharacterMoveInputEvent;
 import org.terasology.engine.logic.characters.CharacterMovementComponent;
 import org.terasology.engine.logic.location.LocationComponent;
 import org.terasology.math.TeraMath;
-import org.terasology.math.geom.Vector3f;
+import org.joml.Vector3f;
 import org.terasology.engine.world.WorldProvider;
 
 public abstract class MovementPlugin {
@@ -31,7 +32,7 @@ public abstract class MovementPlugin {
     }
 
     public abstract JPSPlugin getJpsPlugin(EntityRef entity);
-    public abstract CharacterMoveInputEvent move(EntityRef entity, Vector3f dest, int sequence);
+    public abstract CharacterMoveInputEvent move(EntityRef entity, Vector3fc dest, int sequence);
 
     public WorldProvider getWorld() {
         return world;
@@ -49,15 +50,15 @@ public abstract class MovementPlugin {
         this.time = time;
     }
 
-    public float getYaw(Vector3f delta) {
-        return ((float) Math.atan2(delta.x, delta.z)) * TeraMath.RAD_TO_DEG + 180.0f;
+    public float getYaw(Vector3fc delta) {
+        return ((float) Math.atan2(delta.x(), delta.z())) * TeraMath.RAD_TO_DEG + 180.0f;
     }
 
-    public Vector3f getDelta(EntityRef entity, Vector3f dest) {
+    public Vector3f getDelta(EntityRef entity, Vector3fc dest) {
         LocationComponent location = entity.getComponent(LocationComponent.class);
         CharacterMovementComponent movement = entity.getComponent(CharacterMovementComponent.class);
 
-        Vector3f delta = new Vector3f(dest).sub(location.getWorldPosition());
+        Vector3f delta = dest.sub(location.getWorldPosition(new Vector3f()), new Vector3f());
         delta.div(movement.speedMultiplier).div(getTime().getGameDelta());
         return delta;
     }

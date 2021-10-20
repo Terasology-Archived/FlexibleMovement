@@ -8,16 +8,15 @@ import org.terasology.engine.entitySystem.event.ReceiveEvent;
 import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
 import org.terasology.engine.entitySystem.systems.RegisterMode;
 import org.terasology.engine.entitySystem.systems.RegisterSystem;
+import org.terasology.engine.world.block.Blocks;
 import org.terasology.flexiblemovement.FlexibleMovementComponent;
 import org.terasology.engine.logic.behavior.BehaviorComponent;
 import org.terasology.engine.logic.behavior.asset.BehaviorTree;
 import org.terasology.engine.logic.common.ActivateEvent;
 import org.terasology.gestalt.assets.management.AssetManager;
-import org.terasology.math.geom.Vector3i;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.registry.Share;
 
-import java.math.RoundingMode;
 
 @Share(DebugMoveToSystem.class)
 @RegisterSystem(RegisterMode.AUTHORITY)
@@ -32,7 +31,7 @@ public class DebugMoveToSystem extends BaseComponentSystem {
             BehaviorComponent behaviorComponent = entity.getComponent(BehaviorComponent.class);
             behaviorComponent.tree = assetManager.getAsset("FlexibleMovement:reliableMoveTo", BehaviorTree.class).get();
 
-            component.setPathGoal(new Vector3i(event.getHitPosition(), RoundingMode.HALF_UP));
+            component.setPathGoal(Blocks.toBlockPos(event.getHitPosition()));
             component.resetPath();
             entity.saveComponent(component);
             entity.saveComponent(behaviorComponent);

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.flexiblemovement.debug;
 
+import org.joml.Vector3ic;
 import org.terasology.engine.entitySystem.entity.EntityManager;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
@@ -9,7 +10,6 @@ import org.terasology.engine.entitySystem.systems.RegisterMode;
 import org.terasology.engine.entitySystem.systems.RegisterSystem;
 import org.terasology.engine.entitySystem.systems.RenderSystem;
 import org.terasology.flexiblemovement.FlexibleMovementComponent;
-import org.terasology.math.geom.Vector3i;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.registry.Share;
 import org.terasology.engine.rendering.world.selection.BlockSelectionRenderer;
@@ -33,7 +33,7 @@ public class FlexibleMovementDebugRenderSystem extends BaseComponentSystem imple
         selectionRenderer.beginRenderOverlay();
         for (EntityRef entity : entityManager.getEntitiesWith(FlexibleMovementComponent.class)){
             FlexibleMovementComponent flexibleMovementComponent = entity.getComponent(FlexibleMovementComponent.class);
-            for (Vector3i pos : flexibleMovementComponent.getPath()) {
+            for (Vector3ic pos : flexibleMovementComponent.getPath()) {
                 selectionRenderer.renderMark2(pos);
             }
         }

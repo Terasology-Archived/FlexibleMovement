@@ -3,15 +3,16 @@
 package org.terasology.flexiblemovement.plugin;
 
 import com.google.common.collect.Lists;
+import org.joml.Vector3fc;
 import org.terasology.engine.core.Time;
 import org.terasology.engine.entitySystem.entity.EntityRef;
-import org.terasology.flexiblemovement.FlexibleMovementHelper;
+import org.terasology.engine.world.block.Blocks;
 import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
 import org.terasology.flexiblepathfinding.plugins.basic.CompositePlugin;
 import org.terasology.engine.logic.characters.CharacterMoveInputEvent;
 import org.terasology.engine.logic.location.LocationComponent;
-import org.terasology.math.geom.Vector3f;
-import org.terasology.math.geom.Vector3i;
+import org.joml.Vector3f;
+import org.joml.Vector3i;
 import org.terasology.engine.world.WorldProvider;
 
 import java.util.Collection;
@@ -43,9 +44,9 @@ public class CompositeMovementPlugin extends MovementPlugin {
     }
 
     @Override
-    public CharacterMoveInputEvent move(EntityRef entity, Vector3f dest, int sequence) {
-        Vector3i from = FlexibleMovementHelper.posToBlock(entity.getComponent(LocationComponent.class).getWorldPosition());
-        Vector3i to = FlexibleMovementHelper.posToBlock(dest);
+    public CharacterMoveInputEvent move(EntityRef entity, Vector3fc dest, int sequence) {
+        Vector3i from = Blocks.toBlockPos(entity.getComponent(LocationComponent.class).getWorldPosition(new Vector3f()));
+        Vector3i to = Blocks.toBlockPos(dest);
         for (MovementPlugin plugin : plugins) {
             if (plugin.getJpsPlugin(entity).isReachable(to, from)) {
                 return plugin.move(entity, dest, sequence);

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.flexiblemovement.plugin;
 
+import org.joml.Vector3fc;
 import org.terasology.engine.core.Time;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
@@ -11,7 +12,7 @@ import org.terasology.engine.logic.characters.CharacterMovementComponent;
 import org.terasology.engine.logic.characters.MovementMode;
 import org.terasology.engine.logic.characters.events.SetMovementModeEvent;
 import org.terasology.math.TeraMath;
-import org.terasology.math.geom.Vector3f;
+import org.joml.Vector3f;
 import org.terasology.engine.world.WorldProvider;
 
 public class FlyingMovementPlugin extends MovementPlugin {
@@ -29,7 +30,7 @@ public class FlyingMovementPlugin extends MovementPlugin {
     }
 
     @Override
-    public CharacterMoveInputEvent move(EntityRef entity, Vector3f dest, int sequence) {
+    public CharacterMoveInputEvent move(EntityRef entity, Vector3fc dest, int sequence) {
         Vector3f delta = getDelta(entity, dest);
         float yaw = getYaw(delta);
         long dt = getTime().getGameDeltaInMs();

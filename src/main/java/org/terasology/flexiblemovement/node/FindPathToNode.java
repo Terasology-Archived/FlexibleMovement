@@ -2,8 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.flexiblemovement.node;
 
+import org.joml.Vector3f;
+import org.joml.Vector3i;
+import org.joml.Vector3ic;
+import org.terasology.engine.world.block.Blocks;
 import org.terasology.flexiblemovement.FlexibleMovementComponent;
-import org.terasology.flexiblemovement.FlexibleMovementHelper;
 import org.terasology.flexiblemovement.system.PluginSystem;
 import org.terasology.flexiblepathfinding.JPSConfig;
 import org.terasology.flexiblepathfinding.PathfinderCallback;
@@ -13,7 +16,7 @@ import org.terasology.logic.behavior.tree.Status;
 import org.terasology.logic.behavior.tree.Task;
 import org.terasology.engine.logic.characters.CharacterMovementComponent;
 import org.terasology.engine.logic.location.LocationComponent;
-import org.terasology.math.geom.Vector3i;
+
 import org.terasology.engine.registry.In;
 
 import java.util.List;
@@ -48,8 +51,8 @@ public class FindPathToNode extends Node {
                 pathStatus = Status.RUNNING;
                 FlexibleMovementComponent flexibleMovementComponent = actor().getComponent(FlexibleMovementComponent.class);
                 CharacterMovementComponent characterMovementComponent = actor().getComponent(CharacterMovementComponent.class);
-                Vector3i start = FlexibleMovementHelper.posToBlock(actor().getComponent(LocationComponent.class).getWorldPosition());
-                Vector3i goal = actor().getComponent(FlexibleMovementComponent.class).getPathGoal();
+                Vector3ic start = Blocks.toBlockPos(actor().getComponent(LocationComponent.class).getWorldPosition(new Vector3f()));
+                Vector3ic goal = actor().getComponent(FlexibleMovementComponent.class).getPathGoal();
 
                 if (start == null || goal == null) {
                     return Status.FAILURE;

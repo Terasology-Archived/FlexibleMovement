@@ -3,6 +3,7 @@
 package org.terasology.flexiblemovement;
 
 import com.google.common.collect.Sets;
+import org.joml.Vector3ic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.terasology.engine.entitySystem.entity.EntityManager;
@@ -10,9 +11,11 @@ import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.logic.characters.CharacterMovementComponent;
 import org.terasology.engine.logic.characters.CharacterTeleportEvent;
 import org.terasology.engine.logic.location.LocationComponent;
-import org.terasology.math.Region3i;
-import org.terasology.math.geom.Vector3f;
-import org.terasology.math.geom.Vector3i;
+import org.joml.Vector3f;
+import org.joml.Vector3i;
+import org.terasology.engine.world.block.BlockRegion;
+import org.terasology.engine.world.block.BlockRegionc;
+import org.terasology.engine.world.block.Blocks;
 import org.terasology.moduletestingenvironment.ModuleTestingEnvironment;
 import org.terasology.engine.physics.engine.PhysicsEngine;
 import org.terasology.engine.world.WorldProvider;
@@ -51,13 +54,13 @@ public class FlexibleMovementTestingEnvironment extends ModuleTestingEnvironment
         Block dirt = getHostContext().get(BlockManager.class).getBlock("core:dirt");
         Block water = getHostContext().get(BlockManager.class).getBlock("core:water");
 
-        Region3i extents = getPaddedExtents(world, airHeight);
+        BlockRegionc extents = getPaddedExtents(world, airHeight);
 
-        for (Vector3i pos : extents) {
+        for (Vector3ic pos : extents) {
             forceAndWaitForGeneration(pos);
         }
 
-        for (Vector3i pos : extents) {
+        for (Vector3ic pos : extents) {
             worldProvider.setBlock(pos, dirt);
         }
 
@@ -92,8 +95,8 @@ public class FlexibleMovementTestingEnvironment extends ModuleTestingEnvironment
         }
 
         // find start and goal positions from path data
-        Vector3i start = Vector3i.zero();
-        Vector3i stop = Vector3i.zero();
+        Vector3i start = new Vector3i();
+        Vector3i stop = new Vector3i();
         for (int z = 0; z < path.length; z++) {
             int y = airHeight;
             String row = path[z];
@@ -120,7 +123,7 @@ public class FlexibleMovementTestingEnvironment extends ModuleTestingEnvironment
         }
 
         EntityRef entity = getHostContext().get(EntityManager.class).create("flexiblemovement:testcharacter");
-        entity.send(new CharacterTeleportEvent(start.toVector3f()));
+        entity.send(new CharacterTeleportEvent(new Vector3f(start)));
         entity.getComponent(FlexibleMovementComponent.class).setPathGoal(stop);
         entity.getComponent(FlexibleMovementComponent.class).movementTypes.clear();
         entity.getComponent(FlexibleMovementComponent.class).movementTypes.addAll(Sets.newHashSet(movementTypes));
@@ -133,23 +136,25 @@ public class FlexibleMovementTestingEnvironment extends ModuleTestingEnvironment
         getHostContext().get(PhysicsEngine.class).removeCharacterCollider(entity);
         getHostContext().get(PhysicsEngine.class).getCharacterCollider(entity);
 
-        runUntil(()-> FlexibleMovementHelper.posToBlock(entity.getComponent(LocationComponent.class).getWorldPosition()).distance(start) == 0);
+        runUntil(() -> Blocks.toBlockPos(entity.getComponent(LocationComponent.class)
+                .getWorldPosition(new Vector3f())).distance(start) == 0);
 
         runWhile(()-> {
-            Vector3f pos = entity.getComponent(LocationComponent.class).getWorldPosition();
+            Vector3f pos = entity.getComponent(LocationComponent.class).getWorldPosition(new Vector3f());
             logger.warn("pos: {}", pos);
-            return FlexibleMovementHelper.posToBlock(pos).distance(stop) > 0;
+            return Blocks.toBlockPos(pos).distance(stop) > 0;
         });
     }
 
-    private Region3i getPaddedExtents(String[] world, int airHeight) {
-        Region3i extents = Region3i.createFromCenterExtents(new Vector3i(0, airHeight, 0), 0);
+    private BlockRegionc getPaddedExtents(String[] world, int airHeight) {
+
+        BlockRegion extents = new BlockRegion(new Vector3i(0, airHeight, 0));
         for (int z = 0; z < world.length; z++) {
             int y = airHeight;
             String row = world[z];
             int x = 0;
             for (char c : row.toCharArray()) {
-                extents = extents.expandToContain(new Vector3i(x, y, z));
+                extents.expand(new Vector3i(x, y, z)); // TODO!
                 switch (c) {
                     case 'X':
                         x += 1;
@@ -167,7 +172,7 @@ public class FlexibleMovementTestingEnvironment extends ModuleTestingEnvironment
                 }
             }
         }
-        extents = extents.expand(1);
+        extents.expand(1, 1, 1);
         return extents;
     }
 }

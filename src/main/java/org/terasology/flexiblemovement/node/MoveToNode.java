@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.flexiblemovement.node;
 
+import org.joml.Vector3f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.terasology.engine.core.Time;
@@ -16,7 +17,6 @@ import org.terasology.logic.behavior.tree.Task;
 import org.terasology.engine.logic.characters.CharacterMoveInputEvent;
 import org.terasology.engine.logic.characters.CharacterMovementComponent;
 import org.terasology.engine.logic.location.LocationComponent;
-import org.terasology.math.geom.Vector3f;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.world.WorldProvider;
 
@@ -51,13 +51,13 @@ public class MoveToNode extends Node {
 
             // we need to translate the movement target to an expected real world position
             // in practice we just need to adjust the Y so that it's resting on top of the block at the right height
-            Vector3f adjustedMoveTarget = flexibleMovementComponent.target.toVector3f();
+            Vector3f adjustedMoveTarget = new Vector3f(flexibleMovementComponent.target);
 
             // this is the result of experimentation and some penwork
 //            float adjustedY = (float) Math.ceil(adjustedMoveTarget.y - halfHeight) + halfHeight - 0.5f;
 //            adjustedMoveTarget.setY(adjustedY);
 
-            Vector3f position = location.getWorldPosition();
+            Vector3f position = location.getWorldPosition(new Vector3f());
             if (position.distance(adjustedMoveTarget) <= flexibleMovementComponent.targetTolerance) {
                 return Status.SUCCESS;
             }

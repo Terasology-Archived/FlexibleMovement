@@ -5,15 +5,16 @@ package org.terasology.flexiblemovement;
 import com.google.common.collect.Lists;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.logic.location.LocationComponent;
+import org.terasology.engine.world.block.Blocks;
 import org.terasology.gestalt.entitysystem.component.Component;
-import org.terasology.math.geom.Vector3f;
-import org.terasology.math.geom.Vector3i;
+import org.joml.Vector3f;
+import org.joml.Vector3i;
 
 import java.util.List;
 
 public final class FlexibleMovementComponent implements Component<FlexibleMovementComponent> {
     // immediate movement target
-    public Vector3i target = Vector3i.zero();
+    public Vector3i target = new Vector3i();
 
     /**
      * The maximum distance from a target before it is considered to be reached
@@ -24,7 +25,7 @@ public final class FlexibleMovementComponent implements Component<FlexibleMoveme
     private EntityRef pathGoalEntity = null;
 
     // last known goal position
-    private Vector3i pathGoalPosition = Vector3i.zero();
+    private Vector3i pathGoalPosition = new Vector3i();
 
     // acceptable distance from goal for completion
     public double pathGoalDistance = 0;
@@ -53,8 +54,8 @@ public final class FlexibleMovementComponent implements Component<FlexibleMoveme
 
     public Vector3i getPathGoal() {
         if(pathGoalEntity != null && pathGoalEntity.getComponent(LocationComponent.class) != null) {
-            Vector3f worldPosition = pathGoalEntity.getComponent(LocationComponent.class).getWorldPosition();
-            Vector3i pos = FlexibleMovementHelper.posToBlock(worldPosition);
+            Vector3f worldPosition = pathGoalEntity.getComponent(LocationComponent.class).getWorldPosition(new Vector3f());
+            Vector3i pos = Blocks.toBlockPos(worldPosition);
             pathGoalPosition.set(pos);
         }
         return pathGoalPosition;
