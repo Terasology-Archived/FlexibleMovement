@@ -39,24 +39,4 @@ public class FlexibleMovementDebugRenderSystem extends BaseComponentSystem imple
         }
         selectionRenderer.endRenderOverlay();
     }
-
-    @Override
-    public void renderOpaque() {
-
-    }
-
-    @Override
-    public void renderAlphaBlend() {
-
-    }
-
-    @Override
-    public void renderFirstPerson() {
-
-    }
-
-    @Override
-    public void renderShadows() {
-
-    }
 }
