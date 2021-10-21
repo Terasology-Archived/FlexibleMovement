@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.flexiblemovement;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class FlyingMovementTest extends FlexibleMovementTestingEnvironment {
     @Test

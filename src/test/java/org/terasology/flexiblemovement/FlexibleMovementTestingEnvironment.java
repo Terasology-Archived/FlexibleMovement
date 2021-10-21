@@ -3,7 +3,11 @@
 package org.terasology.flexiblemovement;
 
 import com.google.common.collect.Sets;
+import org.joml.Vector3f;
+import org.joml.Vector3i;
 import org.joml.Vector3ic;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.terasology.engine.entitySystem.entity.EntityManager;
@@ -11,53 +15,51 @@ import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.logic.characters.CharacterMovementComponent;
 import org.terasology.engine.logic.characters.CharacterTeleportEvent;
 import org.terasology.engine.logic.location.LocationComponent;
-import org.joml.Vector3f;
-import org.joml.Vector3i;
-import org.terasology.engine.world.block.BlockRegion;
-import org.terasology.engine.world.block.BlockRegionc;
-import org.terasology.engine.world.block.Blocks;
-import org.terasology.moduletestingenvironment.ModuleTestingEnvironment;
 import org.terasology.engine.physics.engine.PhysicsEngine;
+import org.terasology.engine.registry.In;
 import org.terasology.engine.world.WorldProvider;
 import org.terasology.engine.world.block.Block;
 import org.terasology.engine.world.block.BlockManager;
+import org.terasology.engine.world.block.BlockRegion;
+import org.terasology.engine.world.block.BlockRegionc;
+import org.terasology.engine.world.block.Blocks;
+import org.terasology.moduletestingenvironment.MTEExtension;
+import org.terasology.moduletestingenvironment.ModuleTestingHelper;
+import org.terasology.moduletestingenvironment.extension.Dependencies;
+import org.terasology.moduletestingenvironment.extension.UseWorldGenerator;
 
-import java.util.Set;
 
-public class FlexibleMovementTestingEnvironment extends ModuleTestingEnvironment {
+@ExtendWith(MTEExtension.class)
+@UseWorldGenerator("core:flat")
+@Dependencies("FlexibleMovement")
+@Tag("MteTest")
+public class FlexibleMovementTestingEnvironment {
     private static final Logger logger = LoggerFactory.getLogger(FlexibleMovementTestingEnvironment.class);
 
-    @Override
-    public Set<String> getDependencies() {
-        return Sets.newHashSet("FlexibleMovement");
-    }
-
-    @Override
-    public String getWorldGeneratorUri() {
-        return "core:flat";
-    }
+    @In
+    private ModuleTestingHelper helper;
 
     public void executeFailingExample(String[] world, String[] path) {
         // do nothing
     }
 
-    public void executeExample(String[] world, String[] path, String ... movementTypes) {
+    public void executeExample(String[] world, String[] path, String... movementTypes) {
         executeExample(world, path, 0.9f, 0.3f, movementTypes);
 
     }
 
-    public void executeExample(String[] world, String[] path, float height, float radius, String ... movementTypes) {
+    public void executeExample(String[] world, String[] path, float height, float radius, String... movementTypes) {
         int airHeight = 41;
 
-        WorldProvider worldProvider = getHostContext().get(WorldProvider.class);
-        Block air = getHostContext().get(BlockManager.class).getBlock("engine:air");
-        Block dirt = getHostContext().get(BlockManager.class).getBlock("core:dirt");
-        Block water = getHostContext().get(BlockManager.class).getBlock("core:water");
+        WorldProvider worldProvider = helper.getHostContext().get(WorldProvider.class);
+        Block air = helper.getHostContext().get(BlockManager.class).getBlock("engine:air");
+        Block dirt = helper.getHostContext().get(BlockManager.class).getBlock("CoreAssets:dirt");
+        Block water = helper.getHostContext().get(BlockManager.class).getBlock("CoreAssets:water");
 
         BlockRegionc extents = getPaddedExtents(world, airHeight);
 
         for (Vector3ic pos : extents) {
-            forceAndWaitForGeneration(pos);
+            helper.forceAndWaitForGeneration(pos);
         }
 
         for (Vector3ic pos : extents) {
@@ -122,7 +124,7 @@ public class FlexibleMovementTestingEnvironment extends ModuleTestingEnvironment
             }
         }
 
-        EntityRef entity = getHostContext().get(EntityManager.class).create("flexiblemovement:testcharacter");
+        EntityRef entity = helper.getHostContext().get(EntityManager.class).create("flexiblemovement:testcharacter");
         entity.send(new CharacterTeleportEvent(new Vector3f(start)));
         entity.getComponent(FlexibleMovementComponent.class).setPathGoal(stop);
         entity.getComponent(FlexibleMovementComponent.class).movementTypes.clear();
@@ -133,13 +135,13 @@ public class FlexibleMovementTestingEnvironment extends ModuleTestingEnvironment
 
         // after updating character collision stuff we have to remake the collider, based on the playerHeight command
         // TODO there should probably be a helper for this instead
-        getHostContext().get(PhysicsEngine.class).removeCharacterCollider(entity);
-        getHostContext().get(PhysicsEngine.class).getCharacterCollider(entity);
+        helper.getHostContext().get(PhysicsEngine.class).removeCharacterCollider(entity);
+        helper.getHostContext().get(PhysicsEngine.class).getCharacterCollider(entity);
 
-        runUntil(() -> Blocks.toBlockPos(entity.getComponent(LocationComponent.class)
+        helper.runUntil(() -> Blocks.toBlockPos(entity.getComponent(LocationComponent.class)
                 .getWorldPosition(new Vector3f())).distance(start) == 0);
 
-        runWhile(()-> {
+        helper.runWhile(() -> {
             Vector3f pos = entity.getComponent(LocationComponent.class).getWorldPosition(new Vector3f());
             logger.warn("pos: {}", pos);
             return Blocks.toBlockPos(pos).distance(stop) > 0;
