@@ -13,8 +13,10 @@ import org.terasology.engine.logic.behavior.core.BehaviorState;
 import org.terasology.engine.logic.characters.CharacterMoveInputEvent;
 import org.terasology.engine.logic.characters.CharacterMovementComponent;
 import org.terasology.engine.logic.location.LocationComponent;
+import org.terasology.engine.registry.CoreRegistry;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.world.WorldProvider;
+import org.terasology.engine.world.block.Blocks;
 import org.terasology.flexiblemovement.FlexibleMovementComponent;
 import org.terasology.flexiblemovement.plugin.MovementPlugin;
 import org.terasology.flexiblemovement.plugin.WalkingMovementPlugin;
@@ -25,7 +27,7 @@ import org.terasology.flexiblemovement.system.PluginSystem;
  * SUCCESS: When the actor reaches FlexibleMovementComponent.target
  * FAILURE: When the actor believes it is unable to reach its immediate target
  */
-@BehaviorAction(name = "move_to")
+@BehaviorAction(name = "flex_move_to")
 public class MoveTo extends BaseAction {
     private static final Logger logger = LoggerFactory.getLogger(MoveTo.class);
 
@@ -35,6 +37,19 @@ public class MoveTo extends BaseAction {
     private WorldProvider world;
     @In
     private PluginSystem pluginSystem;
+
+    @Override
+    public void construct(Actor actor) {
+        if (world == null) {
+            world = CoreRegistry.get(WorldProvider.class);
+        }
+        if (pluginSystem == null) {
+            pluginSystem = CoreRegistry.get(PluginSystem.class);
+        }
+        FlexibleMovementComponent flexibleMovementComponent = actor.getComponent(FlexibleMovementComponent.class);
+        flexibleMovementComponent.sequenceNumber = 0;
+        actor.save(flexibleMovementComponent);
+    }
 
     @Override
     public BehaviorState modify(Actor actor, BehaviorState prevResult) {
@@ -51,8 +66,14 @@ public class MoveTo extends BaseAction {
 //            adjustedMoveTarget.setY(adjustedY);
 
         Vector3f position = location.getWorldPosition(new Vector3f());
-        if (position.distance(adjustedMoveTarget) <= flexibleMovementComponent.targetTolerance) {
+        if (Blocks.toBlockPos(position).equals(flexibleMovementComponent.target)) {
             return BehaviorState.SUCCESS;
+        }
+        // Cannot find path too long;
+        if (flexibleMovementComponent.sequenceNumber > 200) {
+            flexibleMovementComponent.resetPath();
+            actor.save(flexibleMovementComponent);
+            return BehaviorState.FAILURE;
         }
 
         flexibleMovementComponent.sequenceNumber++;

@@ -19,7 +19,7 @@ public final class FlexibleMovementComponent implements Component<FlexibleMoveme
     /**
      * The maximum distance from a target before it is considered to be reached
      */
-    public float targetTolerance = 0.5f;
+    public float targetTolerance = 0.2f;
 
     // an entity to take the goal position from
     private EntityRef pathGoalEntity = null;
@@ -36,7 +36,7 @@ public final class FlexibleMovementComponent implements Component<FlexibleMoveme
     // current index along path above
     private int pathIndex = 0;
 
-    public List<String> movementTypes = Lists.newArrayList("walking", "jumping");
+    public List<String> movementTypes = Lists.newArrayList("walking", "leaping");
     public boolean collidedHorizontally;
     public float lastInput;
     public int sequenceNumber;

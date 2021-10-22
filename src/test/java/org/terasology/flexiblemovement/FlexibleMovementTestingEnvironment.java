@@ -26,11 +26,9 @@ import org.terasology.engine.world.block.Blocks;
 import org.terasology.moduletestingenvironment.MTEExtension;
 import org.terasology.moduletestingenvironment.ModuleTestingHelper;
 import org.terasology.moduletestingenvironment.extension.Dependencies;
-import org.terasology.moduletestingenvironment.extension.UseWorldGenerator;
 
 
 @ExtendWith(MTEExtension.class)
-@UseWorldGenerator("core:flat")
 @Dependencies("FlexibleMovement")
 @Tag("MteTest")
 public class FlexibleMovementTestingEnvironment {
