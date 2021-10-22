@@ -2,20 +2,21 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.flexiblemovement.plugin;
 
+import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.terasology.engine.core.Time;
 import org.terasology.engine.entitySystem.entity.EntityRef;
-import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
-import org.terasology.flexiblepathfinding.plugins.basic.LeapingPlugin;
 import org.terasology.engine.logic.characters.CharacterMoveInputEvent;
 import org.terasology.engine.logic.characters.CharacterMovementComponent;
-import org.joml.Vector3f;
 import org.terasology.engine.world.WorldProvider;
+import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
+import org.terasology.flexiblepathfinding.plugins.basic.LeapingPlugin;
 
 public class LeapingMovementPlugin extends MovementPlugin {
     public LeapingMovementPlugin(WorldProvider world, Time time) {
         super(world, time);
     }
+
     public LeapingMovementPlugin() {
         super();
     }
@@ -23,7 +24,8 @@ public class LeapingMovementPlugin extends MovementPlugin {
     @Override
     public JPSPlugin getJpsPlugin(EntityRef entity) {
         CharacterMovementComponent component = entity.getComponent(CharacterMovementComponent.class);
-        return new LeapingPlugin(getWorld(), component.radius * 2.0f, component.height);    }
+        return new LeapingPlugin(getWorld(), component.radius * 2.0f, component.height);
+    }
 
     @Override
     public CharacterMoveInputEvent move(EntityRef entity, Vector3fc dest, int sequence) {
@@ -32,6 +34,6 @@ public class LeapingMovementPlugin extends MovementPlugin {
         long dt = getTime().getGameDeltaInMs();
 
         CharacterMovementComponent movement = entity.getComponent(CharacterMovementComponent.class);
-        return new CharacterMoveInputEvent(sequence, 0, yaw, delta, false, true, dt);
+        return new CharacterMoveInputEvent(sequence, 0, yaw, delta, false, false, true, dt);
     }
 }

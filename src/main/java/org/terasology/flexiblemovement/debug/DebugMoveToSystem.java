@@ -24,7 +24,7 @@ public class DebugMoveToSystem extends BaseComponentSystem {
     @In private EntityManager entityManager;
     @In private AssetManager assetManager;
 
-    @ReceiveEvent(components = {DebugMoveToComponent.class})
+    @ReceiveEvent(components = DebugMoveToComponent.class)
     public void onDebugMoveToActivated(ActivateEvent event, EntityRef item) {
         for (EntityRef entity : entityManager.getEntitiesWith(FlexibleMovementComponent.class, BehaviorComponent.class)) {
             FlexibleMovementComponent component = entity.getComponent(FlexibleMovementComponent.class);

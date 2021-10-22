@@ -2,16 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.flexiblemovement.plugin;
 
+import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.terasology.engine.core.Time;
 import org.terasology.engine.entitySystem.entity.EntityRef;
-import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
 import org.terasology.engine.logic.characters.CharacterMoveInputEvent;
 import org.terasology.engine.logic.characters.CharacterMovementComponent;
 import org.terasology.engine.logic.location.LocationComponent;
-import org.terasology.math.TeraMath;
-import org.joml.Vector3f;
 import org.terasology.engine.world.WorldProvider;
+import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
+import org.terasology.math.TeraMath;
 
 public abstract class MovementPlugin {
     private WorldProvider world;
@@ -32,6 +32,7 @@ public abstract class MovementPlugin {
     }
 
     public abstract JPSPlugin getJpsPlugin(EntityRef entity);
+
     public abstract CharacterMoveInputEvent move(EntityRef entity, Vector3fc dest, int sequence);
 
     public WorldProvider getWorld() {

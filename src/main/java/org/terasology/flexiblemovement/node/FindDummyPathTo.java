@@ -13,7 +13,9 @@ import java.util.Collections;
 
 /**
  * Constructs a dummy two-step path consisting of only the actor's current position and goal position Meant as a cheap fallback when full
- * pathing is not needed or possible SUCCESS: Always
+ * pathing is not needed or possible
+ * <p/>
+ * SUCCESS: Always
  */
 @BehaviorAction(name = "find_dummy_path_to")
 public class FindDummyPathTo extends BaseAction {

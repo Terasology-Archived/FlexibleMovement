@@ -22,8 +22,12 @@ import org.terasology.flexiblepathfinding.PathfinderSystem;
 import java.util.List;
 
 /**
- * Finds a path to the pathGoalPosition of the Actor, stores it in FlexibileMovementComponent.path SUCCESS: When the pathfinder returns a
- * valid path FAILURE: When the pathfinder returns a failure or invalid path
+ * Finds a path to the pathGoalPosition of the Actor, stores it in FlexibileMovementComponent.path
+ * <p/>
+ * SUCCESS: When the pathfinder returns a valid path
+ * <p/>
+ * FAILURE: When the pathfinder returns a failure or invalid path
+ *
  */
 @BehaviorAction(name = "flex_find_path")
 public class FindPathTo extends BaseAction {
@@ -37,10 +41,10 @@ public class FindPathTo extends BaseAction {
 
     @Override
     public void construct(Actor actor) {
-        if(pathfinderSystem == null) {
+        if (pathfinderSystem == null) {
             pathfinderSystem = CoreRegistry.get(PathfinderSystem.class);
         }
-        if(pluginSystem == null) {
+        if (pluginSystem == null) {
             pluginSystem = CoreRegistry.get(PluginSystem.class);
         }
 

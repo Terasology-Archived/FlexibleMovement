@@ -3,16 +3,24 @@
 package org.terasology.flexiblemovement;
 
 import com.google.common.collect.Lists;
+import org.joml.Vector3f;
+import org.joml.Vector3i;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.logic.location.LocationComponent;
 import org.terasology.engine.world.block.Blocks;
 import org.terasology.gestalt.entitysystem.component.Component;
-import org.joml.Vector3f;
-import org.joml.Vector3i;
 
 import java.util.List;
 
 public final class FlexibleMovementComponent implements Component<FlexibleMovementComponent> {
+
+    // acceptable distance from goal for completion
+    public double pathGoalDistance = 0;
+
+    public List<String> movementTypes = Lists.newArrayList("walking", "leaping");
+    public boolean collidedHorizontally;
+    public float lastInput;
+    public int sequenceNumber;
     // immediate movement target
     public Vector3i target = new Vector3i();
 
@@ -27,19 +35,12 @@ public final class FlexibleMovementComponent implements Component<FlexibleMoveme
     // last known goal position
     private Vector3i pathGoalPosition = new Vector3i();
 
-    // acceptable distance from goal for completion
-    public double pathGoalDistance = 0;
-
     // generated path to goal
     private List<Vector3i> path = Lists.newArrayList();
 
     // current index along path above
     private int pathIndex = 0;
 
-    public List<String> movementTypes = Lists.newArrayList("walking", "leaping");
-    public boolean collidedHorizontally;
-    public float lastInput;
-    public int sequenceNumber;
 
     public void setPathGoal(EntityRef entity) {
         pathGoalEntity = entity;
@@ -53,7 +54,7 @@ public final class FlexibleMovementComponent implements Component<FlexibleMoveme
     }
 
     public Vector3i getPathGoal() {
-        if(pathGoalEntity != null && pathGoalEntity.getComponent(LocationComponent.class) != null) {
+        if (pathGoalEntity != null && pathGoalEntity.getComponent(LocationComponent.class) != null) {
             Vector3f worldPosition = pathGoalEntity.getComponent(LocationComponent.class).getWorldPosition(new Vector3f());
             Vector3i pos = Blocks.toBlockPos(worldPosition);
             pathGoalPosition.set(pos);
@@ -68,7 +69,7 @@ public final class FlexibleMovementComponent implements Component<FlexibleMoveme
 
     public void advancePath() {
         pathIndex += 1;
-        if(pathIndex < path.size()) {
+        if (pathIndex < path.size()) {
             target = path.get(pathIndex);
         }
     }
@@ -80,7 +81,7 @@ public final class FlexibleMovementComponent implements Component<FlexibleMoveme
     public void setPath(List<Vector3i> path) {
         resetPath();
         this.path.addAll(path);
-        if(pathIndex < path.size()) {
+        if (pathIndex < path.size()) {
             target = path.get(pathIndex);
         }
     }

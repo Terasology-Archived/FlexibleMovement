@@ -2,23 +2,24 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.flexiblemovement.plugin;
 
+import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.terasology.engine.core.Time;
 import org.terasology.engine.entitySystem.entity.EntityRef;
-import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
-import org.terasology.flexiblepathfinding.plugins.basic.FlyingPlugin;
 import org.terasology.engine.logic.characters.CharacterMoveInputEvent;
 import org.terasology.engine.logic.characters.CharacterMovementComponent;
 import org.terasology.engine.logic.characters.MovementMode;
 import org.terasology.engine.logic.characters.events.SetMovementModeEvent;
-import org.terasology.math.TeraMath;
-import org.joml.Vector3f;
 import org.terasology.engine.world.WorldProvider;
+import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
+import org.terasology.flexiblepathfinding.plugins.basic.FlyingPlugin;
+import org.terasology.math.TeraMath;
 
 public class FlyingMovementPlugin extends MovementPlugin {
     public FlyingMovementPlugin(WorldProvider world, Time time) {
         super(world, time);
     }
+
     public FlyingMovementPlugin() {
         super();
     }
@@ -37,11 +38,11 @@ public class FlyingMovementPlugin extends MovementPlugin {
         float pitch = getPitch(delta);
 
         CharacterMovementComponent movement = entity.getComponent(CharacterMovementComponent.class);
-        if(movement.mode != MovementMode.FLYING) {
+        if (movement.mode != MovementMode.FLYING) {
             entity.send(new SetMovementModeEvent(MovementMode.FLYING));
         }
 
-        return new CharacterMoveInputEvent(sequence, pitch, yaw, delta, false, true, dt);
+        return new CharacterMoveInputEvent(sequence, pitch, yaw, delta, false, false, true, dt);
     }
 
     private float getPitch(Vector3f delta) {

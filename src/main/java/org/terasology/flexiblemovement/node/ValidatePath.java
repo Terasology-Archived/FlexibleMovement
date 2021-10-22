@@ -17,8 +17,11 @@ import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
 import java.util.List;
 
 /**
- * Validates the entity's current path for walkability (according to the pathfinding plugin its using) SUCCESS: when there are no unwalkable
- * waypoints FAILURE: otherwise
+ * Validates the entity's current path for walkability (according to the pathfinding plugin its using)
+ * <p>
+ * SUCCESS: when there are no unwalkable waypoints
+ * <p>
+ * FAILURE: otherwise
  */
 @BehaviorAction(name = "validate_path")
 public class ValidatePath extends BaseAction {

@@ -13,10 +13,10 @@ import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
 import org.terasology.engine.entitySystem.systems.RegisterMode;
 import org.terasology.engine.entitySystem.systems.RegisterSystem;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.registry.Share;
 import org.terasology.engine.world.WorldProvider;
+import org.terasology.flexiblemovement.FlexibleMovementComponent;
 import org.terasology.flexiblemovement.plugin.CompositeMovementPlugin;
 import org.terasology.flexiblemovement.plugin.FlyingMovementPlugin;
 import org.terasology.flexiblemovement.plugin.LeapingMovementPlugin;
@@ -39,15 +39,15 @@ public class PluginSystem extends BaseComponentSystem {
     @In
     private Time time;
 
-    private Map<Uri, Function<EntityRef, MovementPlugin>> registeredPlugins = Maps.newHashMap();
+    private final Map<Uri, Function<EntityRef, MovementPlugin>> registeredPlugins = Maps.newHashMap();
 
     @Override
     public void initialise() {
         super.initialise();
-        registerMovementPlugin("walking", (entity)-> new WalkingMovementPlugin(worldProvider, time));
-        registerMovementPlugin("leaping", (entity)-> new LeapingMovementPlugin(worldProvider, time));
-        registerMovementPlugin("flying", (entity)-> new FlyingMovementPlugin(worldProvider, time));
-        registerMovementPlugin("swimming", (entity)-> new SwimmingMovementPlugin(worldProvider, time));
+        registerMovementPlugin("walking", (entity) -> new WalkingMovementPlugin(worldProvider, time));
+        registerMovementPlugin("leaping", (entity) -> new LeapingMovementPlugin(worldProvider, time));
+        registerMovementPlugin("flying", (entity) -> new FlyingMovementPlugin(worldProvider, time));
+        registerMovementPlugin("swimming", (entity) -> new SwimmingMovementPlugin(worldProvider, time));
     }
 
     public void registerMovementPlugin(String name, Function<EntityRef, MovementPlugin> supplier) {

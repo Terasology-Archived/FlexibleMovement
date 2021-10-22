@@ -2,20 +2,21 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.flexiblemovement.plugin;
 
+import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.terasology.engine.core.Time;
 import org.terasology.engine.entitySystem.entity.EntityRef;
-import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
-import org.terasology.flexiblepathfinding.plugins.basic.WalkingPlugin;
 import org.terasology.engine.logic.characters.CharacterMoveInputEvent;
 import org.terasology.engine.logic.characters.CharacterMovementComponent;
-import org.joml.Vector3f;;
 import org.terasology.engine.world.WorldProvider;
+import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
+import org.terasology.flexiblepathfinding.plugins.basic.WalkingPlugin;
 
 public class WalkingMovementPlugin extends MovementPlugin {
     public WalkingMovementPlugin(WorldProvider world, Time time) {
         super(world, time);
     }
+
     public WalkingMovementPlugin() {
         super();
     }
@@ -23,7 +24,8 @@ public class WalkingMovementPlugin extends MovementPlugin {
     @Override
     public JPSPlugin getJpsPlugin(EntityRef entity) {
         CharacterMovementComponent component = entity.getComponent(CharacterMovementComponent.class);
-        return new WalkingPlugin(getWorld(), component.radius * 2.0f, component.height);    }
+        return new WalkingPlugin(getWorld(), component.radius * 2.0f, component.height);
+    }
 
     @Override
     public CharacterMoveInputEvent move(EntityRef entity, Vector3fc dest, int sequence) {

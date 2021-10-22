@@ -24,7 +24,9 @@ import org.terasology.flexiblemovement.system.PluginSystem;
 
 /**
  * Uses an actor's MovementPlugin to move it to FlexibleMovementComponent.target
+ * <p>
  * SUCCESS: When the actor reaches FlexibleMovementComponent.target
+ * <p>
  * FAILURE: When the actor believes it is unable to reach its immediate target
  */
 @BehaviorAction(name = "flex_move_to")
@@ -62,8 +64,8 @@ public class MoveTo extends BaseAction {
         Vector3f adjustedMoveTarget = new Vector3f(flexibleMovementComponent.target);
 
         // this is the result of experimentation and some penwork
-//            float adjustedY = (float) Math.ceil(adjustedMoveTarget.y - halfHeight) + halfHeight - 0.5f;
-//            adjustedMoveTarget.setY(adjustedY);
+        //    float adjustedY = (float) Math.ceil(adjustedMoveTarget.y - halfHeight) + halfHeight - 0.5f;
+        //      adjustedMoveTarget.setY(adjustedY);
 
         Vector3f position = location.getWorldPosition(new Vector3f());
         if (Blocks.toBlockPos(position).equals(flexibleMovementComponent.target)) {

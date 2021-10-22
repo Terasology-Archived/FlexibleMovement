@@ -11,8 +11,15 @@ import org.terasology.flexiblemovement.FlexibleMovementComponent;
 /**
  * Performs a child node along the FlexibleMovementComponent.path
  * <p>
- * 1. Sets the FlexibleMovementComponent.target 2. Runs the child node until SUCCESS/FAILURE 3. On child SUCCESS, sets target to next
- * waypoint and starts child again 4. On child FAILURE, returns FAILURE 5. When end of path is reached, returns SUCCESS
+ * 1. Sets the FlexibleMovementComponent.target
+ * <p>
+ * 2. Runs the child node until SUCCESS/FAILURE
+ * <p>
+ * 3. On child SUCCESS, sets target to next waypoint and starts child again
+ * <p>
+ * 4. On child FAILURE, returns FAILURE
+ * <p>
+ * 5. When end of path is reached, returns SUCCESS
  */
 @BehaviorAction(name = "flex_move_along_path", isDecorator = true)
 public class MoveAlongPath extends BaseAction {
