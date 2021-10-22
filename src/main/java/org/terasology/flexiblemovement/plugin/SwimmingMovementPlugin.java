@@ -13,8 +13,6 @@ import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
 import org.terasology.flexiblepathfinding.plugins.basic.SwimmingPlugin;
 import org.terasology.math.TeraMath;
 
-;
-
 public class SwimmingMovementPlugin extends MovementPlugin {
     public SwimmingMovementPlugin(WorldProvider world, Time time) {
         super(world, time);
@@ -38,7 +36,7 @@ public class SwimmingMovementPlugin extends MovementPlugin {
         float pitch = getPitch(delta);
 
         CharacterMovementComponent movement = entity.getComponent(CharacterMovementComponent.class);
-        return new CharacterMoveInputEvent(sequence, pitch, yaw, delta, false, movement.grounded, dt);
+        return new CharacterMoveInputEvent(sequence, pitch, yaw, delta, false, false, movement.grounded, dt);
     }
 
     private float getPitch(Vector3f delta) {
