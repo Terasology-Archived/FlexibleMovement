@@ -5,7 +5,7 @@ package org.terasology.flexiblemovement;
 import org.junit.jupiter.api.Test;
 
 @ExtendWith(MTEExtension.class)
-@Dependencies("FlexibleMovement", "CoreAssets")
+@Dependencies({"FlexibleMovement", "CoreAssets"})
 @Tag("MteTest")
 public class LargeLeapingMovementTest extends FlexibleMovementTestingEnvironment {
     @Test
