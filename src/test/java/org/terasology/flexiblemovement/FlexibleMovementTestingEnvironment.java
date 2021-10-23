@@ -145,7 +145,7 @@ public class FlexibleMovementTestingEnvironment {
         helper.runWhile(() -> {
             Vector3f pos = entity.getComponent(LocationComponent.class).getWorldPosition(new Vector3f());
             logger.warn("pos: {}", pos);
-            checkPos = pos;
+            checkPos.set(pos);
             if(Blocks.toBlockPos(checkPos).distance(start) != 0) {
                 if((Blocks.toBlockPos(pos).distance(stop) > Blocks.toBlockPos(checkPos).distance(start))||(Blocks.toBlockPos(pos).distance(new Vector3i((int)checkPos.round().x(),(int)checkPos.round().y(),(int)checkPos.round().z())) <= 0.1))
                     return false;
