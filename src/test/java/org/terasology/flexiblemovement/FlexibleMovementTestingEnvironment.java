@@ -29,7 +29,7 @@ import org.terasology.moduletestingenvironment.extension.Dependencies;
 
 
 @ExtendWith(MTEExtension.class)
-@Dependencies("FlexibleMovement")
+@Dependencies("FlexibleMovement", "CoreAssets")
 @Tag("MteTest")
 public class FlexibleMovementTestingEnvironment {
     private static final Logger logger = LoggerFactory.getLogger(FlexibleMovementTestingEnvironment.class);

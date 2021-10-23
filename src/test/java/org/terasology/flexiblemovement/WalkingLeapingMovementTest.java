@@ -4,6 +4,9 @@ package org.terasology.flexiblemovement;
 
 import org.junit.jupiter.api.Test;
 
+@ExtendWith(MTEExtension.class)
+@Dependencies("FlexibleMovement", "CoreAssets")
+@Tag("MteTest")
 public class WalkingLeapingMovementTest extends FlexibleMovementTestingEnvironment {
     @Test
     public void simpleStraight() throws InterruptedException {
