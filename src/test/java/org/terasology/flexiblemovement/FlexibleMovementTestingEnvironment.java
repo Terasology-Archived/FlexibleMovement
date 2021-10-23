@@ -33,6 +33,7 @@ import org.terasology.moduletestingenvironment.extension.Dependencies;
 @Tag("MteTest")
 public class FlexibleMovementTestingEnvironment {
     private static final Logger logger = LoggerFactory.getLogger(FlexibleMovementTestingEnvironment.class);
+    logger.setLevel(Level.ALL);
 
     @In
     private ModuleTestingHelper helper;
