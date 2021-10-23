@@ -147,7 +147,7 @@ public class FlexibleMovementTestingEnvironment {
             logger.warn("pos: {}", pos);
             checkPos = pos;
             if(Blocks.toBlockPos(checkPos).distance(start) != 0) {
-                if((Blocks.toBlockPos(pos).distance(stop) > Blocks.toBlockPos(checkPos).distance(start))||(Blocks.toBlockPos(pos).distance(new Vector3i(checkPos.round().x(),checkPos.round().y(),checkPos.round().z())) <= 0.1))
+                if((Blocks.toBlockPos(pos).distance(stop) > Blocks.toBlockPos(checkPos).distance(start))||(Blocks.toBlockPos(pos).distance(new Vector3i((int)checkPos.round().x(),(int)checkPos.round().y(),(int)checkPos.round().z())) <= 0.1))
                     return false;
             }
             return Blocks.toBlockPos(pos).distance(stop) > 0;
