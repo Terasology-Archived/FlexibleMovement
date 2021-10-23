@@ -137,7 +137,7 @@ public class FlexibleMovementTestingEnvironment {
         helper.getHostContext().get(PhysicsEngine.class).getCharacterCollider(entity);
 
         //
-        Vector3f checkPos = new Vector3f(start);
+        final Vector3f checkPos = new Vector3f(start);
 
         helper.runUntil(() -> Blocks.toBlockPos(entity.getComponent(LocationComponent.class)
                 .getWorldPosition(new Vector3f())).distance(start) <= 0.1);
