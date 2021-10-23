@@ -18,5 +18,4 @@ The movement implementation for `FlexiblePathfinding`.
  
 ## Usage
 
-In general, you can just run the `reliableMoveTo` behavior, and modify `FlexibleMovementComponent` to control the 
-pathing behavior.
+In general, you can just run the `reliableMoveTo` behavior, and modify `FlexibleMovementComponent` to control the pathing behavior.
