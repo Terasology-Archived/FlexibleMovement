@@ -33,8 +33,7 @@ import org.terasology.moduletestingenvironment.extension.Dependencies;
 @Tag("MteTest")
 public class FlexibleMovementTestingEnvironment {
     private static final Logger logger = LoggerFactory.getLogger(FlexibleMovementTestingEnvironment.class);
-    logger.setLevel(Level.ALL);
-
+    
     @In
     private ModuleTestingHelper helper;
 
@@ -137,12 +136,20 @@ public class FlexibleMovementTestingEnvironment {
         helper.getHostContext().get(PhysicsEngine.class).removeCharacterCollider(entity);
         helper.getHostContext().get(PhysicsEngine.class).getCharacterCollider(entity);
 
+        //
+        Vector3f checkPos = new Vector3f(start);
+
         helper.runUntil(() -> Blocks.toBlockPos(entity.getComponent(LocationComponent.class)
-                .getWorldPosition(new Vector3f())).distance(start) == 0);
+                .getWorldPosition(new Vector3f())).distance(start) <= 0.1);
 
         helper.runWhile(() -> {
             Vector3f pos = entity.getComponent(LocationComponent.class).getWorldPosition(new Vector3f());
             logger.warn("pos: {}", pos);
+            checkPos = pos;
+            if(Blocks.toBlockPos(checkPos).distance(start) != 0) {
+                if((Blocks.toBlockPos(pos).distance(stop) != 0) > (Blocks.toBlockPos(checkPos).distance(start) != 0)||(Blocks.toBlockPos(pos).distance(checkPos) <= 0.1))
+                    return false;
+            }
             return Blocks.toBlockPos(pos).distance(stop) > 0;
         });
     }
