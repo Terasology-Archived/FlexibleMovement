@@ -3,7 +3,6 @@
 package org.terasology.flexiblemovement;
 
 import com.google.common.collect.Sets;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 import org.joml.Vector3i;
 import org.joml.Vector3ic;
@@ -324,7 +323,6 @@ public class MovementTests {
         chunkProvider.purgeWorld();
     }
 
-    @NotNull
     private EntityRef createMovingCharacter(float height, float radius, Vector3i start, Vector3i stop, String... movementTypes) {
         EntityRef entity = entityManager.create("flexiblemovement:testcharacter");
         entity.send(new CharacterTeleportEvent(new Vector3f(start)));
