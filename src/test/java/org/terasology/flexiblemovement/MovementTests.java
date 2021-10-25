@@ -8,6 +8,7 @@ import org.joml.Vector3f;
 import org.joml.Vector3i;
 import org.joml.Vector3ic;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -307,11 +308,15 @@ public class MovementTests {
         helper.runUntil(() -> Blocks.toBlockPos(entity.getComponent(LocationComponent.class)
                 .getWorldPosition(new Vector3f())).distance(start) <= 0.5F);
 
-        helper.runWhile(() -> {
+        boolean result = helper.runWhile(() -> {
             Vector3f pos = entity.getComponent(LocationComponent.class).getWorldPosition(new Vector3f());
             logger.warn("pos: {}", pos);
             return Blocks.toBlockPos(pos).distance(stop) > 0;
         });
+        Assertions.assertFalse(result, () -> String.format("Test character (at %s) cannot reach destination point (at %s)",
+                Blocks.toBlockPos(entity.getComponent(LocationComponent.class).getWorldPosition(new Vector3f())),
+                stop
+                ));
     }
 
     @AfterEach
