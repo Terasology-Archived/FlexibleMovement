@@ -2,8 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.flexiblemovement;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.terasology.moduletestingenvironment.extension.Dependencies;
 
+@Dependencies("FlexibleMovement")
+@Tag("MteTest")
 public class FlyingMovementTest extends FlexibleMovementTestingEnvironment {
     @Test
     public void simpleWall() throws InterruptedException {

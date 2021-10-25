@@ -6,7 +6,6 @@ import com.google.common.collect.Sets;
 import org.joml.Vector3f;
 import org.joml.Vector3i;
 import org.joml.Vector3ic;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,17 +24,22 @@ import org.terasology.engine.world.block.BlockRegionc;
 import org.terasology.engine.world.block.Blocks;
 import org.terasology.moduletestingenvironment.MTEExtension;
 import org.terasology.moduletestingenvironment.ModuleTestingHelper;
-import org.terasology.moduletestingenvironment.extension.Dependencies;
 
 
 @ExtendWith(MTEExtension.class)
-@Dependencies("FlexibleMovement")
-@Tag("MteTest")
 public class FlexibleMovementTestingEnvironment {
     private static final Logger logger = LoggerFactory.getLogger(FlexibleMovementTestingEnvironment.class);
 
     @In
     private ModuleTestingHelper helper;
+    @In
+    private WorldProvider worldProvider;
+    @In
+    private BlockManager blockManager;
+    @In
+    private EntityManager entityManager;
+    @In
+    private PhysicsEngine physicsEngine;
 
     public void executeFailingExample(String[] world, String[] path) {
         // do nothing
@@ -49,10 +53,9 @@ public class FlexibleMovementTestingEnvironment {
     public void executeExample(String[] world, String[] path, float height, float radius, String... movementTypes) {
         int airHeight = 41;
 
-        WorldProvider worldProvider = helper.getHostContext().get(WorldProvider.class);
-        Block air = helper.getHostContext().get(BlockManager.class).getBlock("engine:air");
-        Block dirt = helper.getHostContext().get(BlockManager.class).getBlock("CoreAssets:dirt");
-        Block water = helper.getHostContext().get(BlockManager.class).getBlock("CoreAssets:water");
+        Block air = blockManager.getBlock("engine:air");
+        Block dirt = blockManager.getBlock("CoreAssets:dirt");
+        Block water = blockManager.getBlock("CoreAssets:water");
 
         BlockRegionc extents = getPaddedExtents(world, airHeight);
 
@@ -122,7 +125,7 @@ public class FlexibleMovementTestingEnvironment {
             }
         }
 
-        EntityRef entity = helper.getHostContext().get(EntityManager.class).create("flexiblemovement:testcharacter");
+        EntityRef entity = entityManager.create("flexiblemovement:testcharacter");
         entity.send(new CharacterTeleportEvent(new Vector3f(start)));
         entity.getComponent(FlexibleMovementComponent.class).setPathGoal(stop);
         entity.getComponent(FlexibleMovementComponent.class).movementTypes.clear();
@@ -131,13 +134,12 @@ public class FlexibleMovementTestingEnvironment {
         entity.getComponent(CharacterMovementComponent.class).height = height;
         entity.getComponent(CharacterMovementComponent.class).radius = radius;
 
-        // after updating character collision stuff we have to remake the collider, based on the playerHeight command
-        // TODO there should probably be a helper for this instead
-        helper.getHostContext().get(PhysicsEngine.class).removeCharacterCollider(entity);
-        helper.getHostContext().get(PhysicsEngine.class).getCharacterCollider(entity);
+
+        physicsEngine.removeCharacterCollider(entity);
+        physicsEngine.getCharacterCollider(entity);
 
         helper.runUntil(() -> Blocks.toBlockPos(entity.getComponent(LocationComponent.class)
-                .getWorldPosition(new Vector3f())).distance(start) == 0);
+                .getWorldPosition(new Vector3f())).distance(start) <= 0.5F);
 
         helper.runWhile(() -> {
             Vector3f pos = entity.getComponent(LocationComponent.class).getWorldPosition(new Vector3f());
@@ -147,14 +149,15 @@ public class FlexibleMovementTestingEnvironment {
     }
 
     private BlockRegionc getPaddedExtents(String[] world, int airHeight) {
+        Vector3i minPoint = new Vector3i(0, airHeight, 0);
+        Vector3i maxPoint = new Vector3i();
 
-        BlockRegion extents = new BlockRegion(new Vector3i(0, airHeight, 0));
         for (int z = 0; z < world.length; z++) {
             int y = airHeight;
             String row = world[z];
             int x = 0;
             for (char c : row.toCharArray()) {
-                extents.expand(new Vector3i(x, y, z)); // TODO!
+                maxPoint.set(x, y, z);
                 switch (c) {
                     case 'X':
                         x += 1;
@@ -172,6 +175,7 @@ public class FlexibleMovementTestingEnvironment {
                 }
             }
         }
+        BlockRegion extents = new BlockRegion(minPoint, maxPoint);
         extents.expand(1, 1, 1);
         return extents;
     }
