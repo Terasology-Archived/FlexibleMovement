@@ -13,7 +13,7 @@ import org.terasology.engine.registry.In;
 import org.terasology.engine.registry.Share;
 import org.terasology.engine.rendering.world.selection.BlockSelectionRenderer;
 import org.terasology.engine.utilities.Assets;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
+import org.terasology.flexiblemovement.components.MinionMoveComponent;
 
 @RegisterSystem(RegisterMode.CLIENT)
 @Share(FlexibleMovementDebugRenderSystem.class)
@@ -31,8 +31,8 @@ public class FlexibleMovementDebugRenderSystem extends BaseComponentSystem imple
     @Override
     public void renderOverlay() {
         selectionRenderer.beginRenderOverlay();
-        for (EntityRef entity : entityManager.getEntitiesWith(FlexibleMovementComponent.class)) {
-            FlexibleMovementComponent flexibleMovementComponent = entity.getComponent(FlexibleMovementComponent.class);
+        for (EntityRef entity : entityManager.getEntitiesWith(MinionMoveComponent.class)) {
+            MinionMoveComponent flexibleMovementComponent = entity.getComponent(MinionMoveComponent.class);
             for (Vector3ic pos : flexibleMovementComponent.getPath()) {
                 selectionRenderer.renderMark2(pos);
             }

@@ -3,26 +3,26 @@
 package org.terasology.flexiblemovement.actions;
 
 import org.joml.Vector3f;
-import org.terasology.behaviors.components.TerritoryDistance;
 import org.terasology.engine.logic.behavior.BehaviorAction;
 import org.terasology.engine.logic.behavior.core.Actor;
 import org.terasology.engine.logic.behavior.core.BaseAction;
 import org.terasology.engine.logic.behavior.core.BehaviorState;
 import org.terasology.engine.world.block.Blocks;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
+import org.terasology.flexiblemovement.components.MinionMoveComponent;
+import org.terasology.module.behaviors.components.TerritoryDistance;
 
 
 @BehaviorAction(name = "flex_set_target_territory")
 public class SetTargetToTerritory extends BaseAction {
     @Override
     public BehaviorState modify(Actor actor, BehaviorState result) {
-        if (!actor.hasComponent(TerritoryDistance.class) || !actor.hasComponent(FlexibleMovementComponent.class)) {
+        if (!actor.hasComponent(TerritoryDistance.class) || !actor.hasComponent(MinionMoveComponent.class)) {
             return BehaviorState.FAILURE;
         }
 
         Vector3f territory = actor.getComponent(TerritoryDistance.class).location;
 
-        FlexibleMovementComponent moveComponent = actor.getComponent(FlexibleMovementComponent.class);
+        MinionMoveComponent moveComponent = actor.getComponent(MinionMoveComponent.class);
         if (moveComponent.target.equals(territory)) {
             return BehaviorState.SUCCESS;
         }

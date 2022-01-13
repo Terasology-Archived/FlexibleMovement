@@ -1,12 +1,12 @@
-// Copyright 2021 The Terasology Foundation
+// Copyright 2022 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
-package org.terasology.flexiblemovement.node;
+package org.terasology.flexiblemovement.actions;
 
 import org.terasology.engine.logic.behavior.BehaviorAction;
 import org.terasology.engine.logic.behavior.core.Actor;
 import org.terasology.engine.logic.behavior.core.BaseAction;
 import org.terasology.engine.logic.behavior.core.BehaviorState;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
+import org.terasology.flexiblemovement.components.MinionMoveComponent;
 
 /**
  * Performs a child node along the FlexibleMovementComponent.path
@@ -22,11 +22,11 @@ import org.terasology.flexiblemovement.FlexibleMovementComponent;
  * 5. When end of path is reached, returns SUCCESS
  */
 @BehaviorAction(name = "flex_move_along_path", isDecorator = true)
-public class MoveAlongPath extends BaseAction {
+public class MoveAlongPathNode extends BaseAction {
 
     @Override
     public BehaviorState modify(Actor actor, BehaviorState result) {
-        FlexibleMovementComponent movement = actor.getComponent(FlexibleMovementComponent.class);
+        MinionMoveComponent movement = actor.getComponent(MinionMoveComponent.class);
         if (result == BehaviorState.SUCCESS) {
             movement.advancePath();
             if (movement.isPathFinished()) {

@@ -4,18 +4,18 @@ package org.terasology.flexiblemovement.debug;
 
 import org.terasology.engine.entitySystem.entity.EntityManager;
 import org.terasology.engine.entitySystem.entity.EntityRef;
-import org.terasology.engine.entitySystem.event.ReceiveEvent;
 import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
 import org.terasology.engine.entitySystem.systems.RegisterMode;
 import org.terasology.engine.entitySystem.systems.RegisterSystem;
-import org.terasology.engine.world.block.Blocks;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
 import org.terasology.engine.logic.behavior.BehaviorComponent;
 import org.terasology.engine.logic.behavior.asset.BehaviorTree;
 import org.terasology.engine.logic.common.ActivateEvent;
-import org.terasology.gestalt.assets.management.AssetManager;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.registry.Share;
+import org.terasology.engine.world.block.Blocks;
+import org.terasology.flexiblemovement.components.MinionMoveComponent;
+import org.terasology.gestalt.assets.management.AssetManager;
+import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
 
 
 @Share(DebugMoveToSystem.class)
@@ -26,8 +26,8 @@ public class DebugMoveToSystem extends BaseComponentSystem {
 
     @ReceiveEvent(components = DebugMoveToComponent.class)
     public void onDebugMoveToActivated(ActivateEvent event, EntityRef item) {
-        for (EntityRef entity : entityManager.getEntitiesWith(FlexibleMovementComponent.class, BehaviorComponent.class)) {
-            FlexibleMovementComponent component = entity.getComponent(FlexibleMovementComponent.class);
+        for (EntityRef entity : entityManager.getEntitiesWith(MinionMoveComponent.class, BehaviorComponent.class)) {
+            MinionMoveComponent component = entity.getComponent(MinionMoveComponent.class);
             BehaviorComponent behaviorComponent = entity.getComponent(BehaviorComponent.class);
             behaviorComponent.tree = assetManager.getAsset("FlexibleMovement:reliableMoveTo", BehaviorTree.class).get();
 

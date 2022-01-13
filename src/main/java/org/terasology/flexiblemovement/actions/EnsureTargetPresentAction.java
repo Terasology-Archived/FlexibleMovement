@@ -7,7 +7,7 @@ package org.terasology.flexiblemovement.actions;
 //import org.terasology.engine.logic.behavior.core.Actor;
 //import org.terasology.engine.logic.behavior.core.BaseAction;
 //import org.terasology.engine.logic.behavior.core.BehaviorState;
-//import org.terasology.flexiblemovement.FlexibleMovementComponent;
+//import org.terasology.flexiblemovement.components.FlexibleMovementComponent;
 
 // Not applicable.
 

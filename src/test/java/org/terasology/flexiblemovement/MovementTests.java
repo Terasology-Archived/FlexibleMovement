@@ -30,6 +30,7 @@ import org.terasology.engine.world.block.BlockRegion;
 import org.terasology.engine.world.block.BlockRegionc;
 import org.terasology.engine.world.block.Blocks;
 import org.terasology.engine.world.chunks.ChunkProvider;
+import org.terasology.flexiblemovement.components.MinionMoveComponent;
 import org.terasology.moduletestingenvironment.MTEExtension;
 import org.terasology.moduletestingenvironment.ModuleTestingHelper;
 import org.terasology.moduletestingenvironment.extension.Dependencies;
@@ -327,7 +328,7 @@ public class MovementTests {
         EntityRef entity = entityManager.create("flexiblemovement:testcharacter");
         entity.send(new CharacterTeleportEvent(new Vector3f(start)));
 
-        FlexibleMovementComponent flexibleMovementComponent = entity.getComponent(FlexibleMovementComponent.class);
+        MinionMoveComponent flexibleMovementComponent = entity.getComponent(MinionMoveComponent.class);
         flexibleMovementComponent.setPathGoal(stop);
         flexibleMovementComponent.movementTypes.clear();
         flexibleMovementComponent.movementTypes.addAll(Sets.newHashSet(movementTypes));

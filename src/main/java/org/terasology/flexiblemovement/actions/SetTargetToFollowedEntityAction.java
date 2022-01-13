@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.flexiblemovement.actions;
 
-import org.terasology.behaviors.components.FollowComponent;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.logic.behavior.BehaviorAction;
 import org.terasology.engine.logic.behavior.core.Actor;
 import org.terasology.engine.logic.behavior.core.BaseAction;
 import org.terasology.engine.logic.behavior.core.BehaviorState;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
+import org.terasology.flexiblemovement.components.MinionMoveComponent;
+import org.terasology.module.behaviors.components.FollowComponent;
 
 @BehaviorAction(name = "flex_set_target_to_followed_entity")
 public class SetTargetToFollowedEntityAction extends BaseAction {
@@ -16,7 +16,7 @@ public class SetTargetToFollowedEntityAction extends BaseAction {
     @Override
     public BehaviorState modify(Actor actor, BehaviorState result) {
 
-        FlexibleMovementComponent moveComponent = actor.getComponent(FlexibleMovementComponent.class);
+        MinionMoveComponent moveComponent = actor.getComponent(MinionMoveComponent.class);
         if (moveComponent != null) {
             EntityRef followedEntity = actor.getComponent(FollowComponent.class).entityToFollow;
             if (followedEntity != null && followedEntity != EntityRef.NULL) {

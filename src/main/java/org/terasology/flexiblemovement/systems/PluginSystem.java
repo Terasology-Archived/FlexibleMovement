@@ -1,6 +1,6 @@
 // Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
-package org.terasology.flexiblemovement.system;
+package org.terasology.flexiblemovement.systems;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -16,7 +16,7 @@ import org.terasology.engine.entitySystem.systems.RegisterSystem;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.registry.Share;
 import org.terasology.engine.world.WorldProvider;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
+import org.terasology.flexiblemovement.components.MinionMoveComponent;
 import org.terasology.flexiblemovement.plugin.CompositeMovementPlugin;
 import org.terasology.flexiblemovement.plugin.FlyingMovementPlugin;
 import org.terasology.flexiblemovement.plugin.LeapingMovementPlugin;
@@ -70,7 +70,7 @@ public class PluginSystem extends BaseComponentSystem {
 
     public MovementPlugin getMovementPlugin(EntityRef entity) {
         List<MovementPlugin> plugins = Lists.newArrayList();
-        FlexibleMovementComponent component = entity.getComponent(FlexibleMovementComponent.class);
+        MinionMoveComponent component = entity.getComponent(MinionMoveComponent.class);
         for (String movementType : component.movementTypes) {
 
             // if the module name is omitted, assume it's from the base module

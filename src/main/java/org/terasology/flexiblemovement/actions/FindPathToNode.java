@@ -1,6 +1,6 @@
-// Copyright 2021 The Terasology Foundation
+// Copyright 2022 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
-package org.terasology.flexiblemovement.node;
+package org.terasology.flexiblemovement.actions;
 
 import org.joml.Vector3f;
 import org.joml.Vector3i;
@@ -13,8 +13,8 @@ import org.terasology.engine.logic.location.LocationComponent;
 import org.terasology.engine.registry.CoreRegistry;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.world.block.Blocks;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
-import org.terasology.flexiblemovement.system.PluginSystem;
+import org.terasology.flexiblemovement.components.MinionMoveComponent;
+import org.terasology.flexiblemovement.systems.PluginSystem;
 import org.terasology.flexiblepathfinding.JPSConfig;
 import org.terasology.flexiblepathfinding.PathfinderCallback;
 import org.terasology.flexiblepathfinding.PathfinderSystem;
@@ -30,7 +30,7 @@ import java.util.List;
  *
  */
 @BehaviorAction(name = "flex_find_path")
-public class FindPathTo extends BaseAction {
+public class FindPathToNode extends BaseAction {
 
     @In
     PathfinderSystem pathfinderSystem;
@@ -48,9 +48,9 @@ public class FindPathTo extends BaseAction {
             pluginSystem = CoreRegistry.get(PluginSystem.class);
         }
 
-        FlexibleMovementComponent flexibleMovementComponent = actor.getComponent(FlexibleMovementComponent.class);
+        MinionMoveComponent flexibleMovementComponent = actor.getComponent(MinionMoveComponent.class);
         Vector3ic start = Blocks.toBlockPos(actor.getComponent(LocationComponent.class).getWorldPosition(new Vector3f()));
-        Vector3ic goal = actor.getComponent(FlexibleMovementComponent.class).getPathGoal();
+        Vector3ic goal = actor.getComponent(MinionMoveComponent.class).getPathGoal();
 
         JPSConfig config = new JPSConfig(start, goal);
         config.useLineOfSight = false;
@@ -67,7 +67,7 @@ public class FindPathTo extends BaseAction {
                     return;
                 }
                 path.remove(0);
-                FlexibleMovementComponent flexibleMovementComponent = actor.getComponent(FlexibleMovementComponent.class);
+                MinionMoveComponent flexibleMovementComponent = actor.getComponent(MinionMoveComponent.class);
                 flexibleMovementComponent.setPath(path);
                 actor.save(flexibleMovementComponent);
             }
@@ -79,7 +79,7 @@ public class FindPathTo extends BaseAction {
         if (result == BehaviorState.RUNNING) {
             return result;
         }
-        FlexibleMovementComponent flexibleMovementComponent = actor.getComponent(FlexibleMovementComponent.class);
+        MinionMoveComponent flexibleMovementComponent = actor.getComponent(MinionMoveComponent.class);
         return flexibleMovementComponent.getPath().isEmpty() ? BehaviorState.FAILURE : BehaviorState.SUCCESS;
     }
 }

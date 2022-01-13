@@ -9,7 +9,6 @@ import org.joml.Vector3i;
 import org.joml.Vector3ic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.terasology.behaviors.components.StrayRestrictionComponent;
 import org.terasology.engine.logic.behavior.BehaviorAction;
 import org.terasology.engine.logic.behavior.core.Actor;
 import org.terasology.engine.logic.behavior.core.BaseAction;
@@ -20,15 +19,16 @@ import org.terasology.engine.world.block.BlockArea;
 import org.terasology.engine.world.block.BlockRegion;
 import org.terasology.engine.world.block.BlockRegionc;
 import org.terasology.engine.world.block.Blocks;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
-import org.terasology.flexiblemovement.system.PluginSystem;
+import org.terasology.flexiblemovement.components.MinionMoveComponent;
+import org.terasology.flexiblemovement.systems.PluginSystem;
 import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
+import org.terasology.module.behaviors.components.StrayRestrictionComponent;
 
 import java.util.Optional;
 import java.util.Random;
 
 /**
- * Sets a character's {@link FlexibleMovementComponent} target to a random nearby block inside the area defined in the character's {@link
+ * Sets a character's {@link MinionMoveComponent} target to a random nearby block inside the area defined in the character's {@link
  * StrayRestrictionComponent}.
  */
 @BehaviorAction(name = "flex_set_target_nearby_block_restricted")
@@ -64,7 +64,7 @@ public class NearbyBlockRestricted extends BaseAction {
     @Override
     public BehaviorState modify(Actor actor, BehaviorState result) {
         if (random.nextInt(100) > (99 - moveProbability)) {
-            FlexibleMovementComponent moveComponent = actor.getComponent(FlexibleMovementComponent.class);
+            MinionMoveComponent moveComponent = actor.getComponent(MinionMoveComponent.class);
             LocationComponent locationComponent = actor.getComponent(LocationComponent.class);
             JPSPlugin plugin = movementPluginSystem.getMovementPlugin(actor.getEntity())
                     .getJpsPlugin(actor.getEntity());

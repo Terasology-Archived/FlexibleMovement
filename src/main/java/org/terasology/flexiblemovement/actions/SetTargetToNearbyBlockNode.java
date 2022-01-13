@@ -17,8 +17,8 @@ import org.terasology.engine.registry.In;
 import org.terasology.engine.world.block.BlockRegion;
 import org.terasology.engine.world.block.BlockRegionc;
 import org.terasology.engine.world.block.Blocks;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
-import org.terasology.flexiblemovement.system.PluginSystem;
+import org.terasology.flexiblemovement.components.MinionMoveComponent;
+import org.terasology.flexiblemovement.systems.PluginSystem;
 import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
 
 import java.util.Random;
@@ -36,7 +36,7 @@ public class SetTargetToNearbyBlockNode extends BaseAction {
     @Override
     public BehaviorState modify(Actor actor, BehaviorState result) {
         if (random.nextInt(100) > (99 - moveProbability)) {
-            FlexibleMovementComponent moveComponent = actor.getComponent(FlexibleMovementComponent.class);
+            MinionMoveComponent moveComponent = actor.getComponent(MinionMoveComponent.class);
             LocationComponent locationComponent = actor.getComponent(LocationComponent.class);
             JPSPlugin plugin = movementPluginSystem.getMovementPlugin(actor.getEntity())
                     .getJpsPlugin(actor.getEntity());

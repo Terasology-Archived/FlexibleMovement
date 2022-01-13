@@ -1,6 +1,6 @@
-// Copyright 2021 The Terasology Foundation
+// Copyright 2022 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
-package org.terasology.flexiblemovement.node;
+package org.terasology.flexiblemovement.actions;
 
 import org.joml.Vector3f;
 import org.slf4j.Logger;
@@ -17,10 +17,10 @@ import org.terasology.engine.registry.CoreRegistry;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.world.WorldProvider;
 import org.terasology.engine.world.block.Blocks;
-import org.terasology.flexiblemovement.FlexibleMovementComponent;
+import org.terasology.flexiblemovement.components.MinionMoveComponent;
 import org.terasology.flexiblemovement.plugin.MovementPlugin;
 import org.terasology.flexiblemovement.plugin.WalkingMovementPlugin;
-import org.terasology.flexiblemovement.system.PluginSystem;
+import org.terasology.flexiblemovement.systems.PluginSystem;
 
 /**
  * Uses an actor's MovementPlugin to move it to FlexibleMovementComponent.target
@@ -30,8 +30,8 @@ import org.terasology.flexiblemovement.system.PluginSystem;
  * FAILURE: When the actor believes it is unable to reach its immediate target
  */
 @BehaviorAction(name = "flex_move_to")
-public class MoveTo extends BaseAction {
-    private static final Logger logger = LoggerFactory.getLogger(MoveTo.class);
+public class MoveToAction extends BaseAction {
+    private static final Logger logger = LoggerFactory.getLogger(MoveToAction.class);
 
     @In
     private Time time;
@@ -48,7 +48,7 @@ public class MoveTo extends BaseAction {
         if (pluginSystem == null) {
             pluginSystem = CoreRegistry.get(PluginSystem.class);
         }
-        FlexibleMovementComponent flexibleMovementComponent = actor.getComponent(FlexibleMovementComponent.class);
+        MinionMoveComponent flexibleMovementComponent = actor.getComponent(MinionMoveComponent.class);
         flexibleMovementComponent.sequenceNumber = 0;
         actor.save(flexibleMovementComponent);
     }
@@ -56,7 +56,7 @@ public class MoveTo extends BaseAction {
     @Override
     public BehaviorState modify(Actor actor, BehaviorState prevResult) {
         LocationComponent location = actor.getComponent(LocationComponent.class);
-        FlexibleMovementComponent flexibleMovementComponent = actor.getComponent(FlexibleMovementComponent.class);
+        MinionMoveComponent flexibleMovementComponent = actor.getComponent(MinionMoveComponent.class);
         CharacterMovementComponent characterMovementComponent = actor.getComponent(CharacterMovementComponent.class);
 
         // we need to translate the movement target to an expected real world position

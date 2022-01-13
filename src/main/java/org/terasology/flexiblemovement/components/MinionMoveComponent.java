@@ -1,6 +1,6 @@
-// Copyright 2021 The Terasology Foundation
+// Copyright 2022 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
-package org.terasology.flexiblemovement;
+package org.terasology.flexiblemovement.components;
 
 import com.google.common.collect.Lists;
 import org.joml.Vector3f;
@@ -12,7 +12,7 @@ import org.terasology.gestalt.entitysystem.component.Component;
 
 import java.util.List;
 
-public final class FlexibleMovementComponent implements Component<FlexibleMovementComponent> {
+public final class MinionMoveComponent implements Component<MinionMoveComponent> {
 
     // acceptable distance from goal for completion
     public double pathGoalDistance = 0;
@@ -95,7 +95,7 @@ public final class FlexibleMovementComponent implements Component<FlexibleMoveme
     }
 
     @Override
-    public void copyFrom(FlexibleMovementComponent other) {
+    public void copyFrom(MinionMoveComponent other) {
         target.set(other.target);
         targetTolerance = other.targetTolerance;
         pathGoalEntity = other.pathGoalEntity;
