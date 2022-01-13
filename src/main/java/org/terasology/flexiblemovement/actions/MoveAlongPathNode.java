@@ -21,7 +21,7 @@ import org.terasology.flexiblemovement.components.MinionMoveComponent;
  * <p>
  * 5. When end of path is reached, returns SUCCESS
  */
-@BehaviorAction(name = "flex_move_along_path", isDecorator = true)
+@BehaviorAction(name = "move_along_path", isDecorator = true)
 public class MoveAlongPathNode extends BaseAction {
 
     @Override

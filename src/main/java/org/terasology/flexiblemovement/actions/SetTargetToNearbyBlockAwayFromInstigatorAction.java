@@ -27,7 +27,7 @@ import java.util.Random;
 
 import static java.lang.Integer.min;
 
-@BehaviorAction(name = "flex_set_target_nearby_block_away_from_instigator")
+@BehaviorAction(name = "set_target_nearby_block_away_from_instigator")
 public class SetTargetToNearbyBlockAwayFromInstigatorAction extends BaseAction {
 
     private static final Logger logger = LoggerFactory.getLogger(SetTargetToNearbyBlockAwayFromInstigatorAction.class);

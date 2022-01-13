@@ -29,7 +29,7 @@ import java.util.List;
  * FAILURE: When the pathfinder returns a failure or invalid path
  *
  */
-@BehaviorAction(name = "flex_find_path")
+@BehaviorAction(name = "find_path")
 public class FindPathToNode extends BaseAction {
 
     @In

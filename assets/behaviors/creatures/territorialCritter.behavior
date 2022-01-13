@@ -33,8 +33,8 @@
     },
     {
       "sequence": [
-        "flex_set_target_territory",
-        "flex_move_to"
+        "set_target_territory",
+        "move_to"
       ]
     }
   ]

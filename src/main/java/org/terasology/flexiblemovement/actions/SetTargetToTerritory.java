@@ -12,7 +12,7 @@ import org.terasology.flexiblemovement.components.MinionMoveComponent;
 import org.terasology.module.behaviors.components.TerritoryDistance;
 
 
-@BehaviorAction(name = "flex_set_target_territory")
+@BehaviorAction(name = "set_target_territory")
 public class SetTargetToTerritory extends BaseAction {
     @Override
     public BehaviorState modify(Actor actor, BehaviorState result) {

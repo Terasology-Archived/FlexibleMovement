@@ -14,8 +14,8 @@
   },
   {
     sequence : [
-      flex_set_target_nearby_block_away_from_instigator,
-      flex_move_to
+      set_target_nearby_block_away_from_instigator,
+      move_to
     ]
   }
   ]

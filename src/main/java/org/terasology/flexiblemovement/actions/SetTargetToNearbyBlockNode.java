@@ -24,7 +24,7 @@ import org.terasology.flexiblepathfinding.plugins.JPSPlugin;
 import java.util.Random;
 
 
-@BehaviorAction(name = "flex_set_target_nearby_block")
+@BehaviorAction(name = "set_target_nearby_block")
 public class SetTargetToNearbyBlockNode extends BaseAction {
     private static final Logger logger = LoggerFactory.getLogger(SetTargetToNearbyBlockNode.class);
     private int moveProbability = 100;

@@ -2,12 +2,12 @@
   sequence : [
     {
       selector : [
-        flex_find_path
+        find_path
       ]
     },
-    { flex_move_along_path: {
+    { move_along_path: {
       child : {
-        flex_move_to: {}
+        move_to: {}
       }
      }
     }

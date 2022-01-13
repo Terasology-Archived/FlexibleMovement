@@ -31,7 +31,7 @@ import java.util.Random;
  * Sets a character's {@link MinionMoveComponent} target to a random nearby block inside the area defined in the character's {@link
  * StrayRestrictionComponent}.
  */
-@BehaviorAction(name = "flex_set_target_nearby_block_restricted")
+@BehaviorAction(name = "set_target_nearby_block_restricted")
 public class NearbyBlockRestricted extends BaseAction {
 
     private static final Logger logger = LoggerFactory.getLogger(NearbyBlockRestricted.class);

@@ -29,7 +29,7 @@ import org.terasology.flexiblemovement.systems.PluginSystem;
  * <p>
  * FAILURE: When the actor believes it is unable to reach its immediate target
  */
-@BehaviorAction(name = "flex_move_to")
+@BehaviorAction(name = "move_to")
 public class MoveToAction extends BaseAction {
     private static final Logger logger = LoggerFactory.getLogger(MoveToAction.class);
 

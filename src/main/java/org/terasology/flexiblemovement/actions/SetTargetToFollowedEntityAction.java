@@ -10,7 +10,7 @@ import org.terasology.engine.logic.behavior.core.BehaviorState;
 import org.terasology.flexiblemovement.components.MinionMoveComponent;
 import org.terasology.module.behaviors.components.FollowComponent;
 
-@BehaviorAction(name = "flex_set_target_to_followed_entity")
+@BehaviorAction(name = "set_target_to_followed_entity")
 public class SetTargetToFollowedEntityAction extends BaseAction {
 
     @Override

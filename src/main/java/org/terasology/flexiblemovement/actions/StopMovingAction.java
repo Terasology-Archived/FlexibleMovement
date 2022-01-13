@@ -10,7 +10,7 @@ import org.terasology.engine.logic.characters.CharacterMoveInputEvent;
 import org.terasology.engine.logic.location.LocationComponent;
 import org.terasology.flexiblemovement.components.MinionMoveComponent;
 
-@BehaviorAction(name = "flex_stop_moving")
+@BehaviorAction(name = "stop_moving")
 public class StopMovingAction extends BaseAction {
 
     @Override
